@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"> 
+    <title>Taller_4</title>
+
+</head>
+<body>
+    <script>
+
+let electrodomesticos = []; // arreglo vacío para almacenar los electrodomésticos
+
+function crearRegistro() {
+  let cantidad = parseInt(prompt("Ingrese la cantidad de electrodomésticos que desea registrar:"));
+  for (let i = 0; i < cantidad; i++) {
+    let codigo = prompt("Ingrese el código del electrodoméstico:");
+    let nombre = prompt("Ingrese el nombre del electrodoméstico:");
+    let referencia = prompt("Ingrese la referencia del electrodoméstico:");
+    electrodomesticos.push([codigo, nombre, referencia]); // agrega un nuevo registro al arreglo
+  }
+}
+
+function modificarRegistro() {
+  let codigo = prompt("Ingrese el código del electrodoméstico que desea modificar:");
+  let index = electrodomesticos.findIndex((element) => element[0] === codigo);
+  if (index !== -1) {
+    let nombre = prompt("Ingrese el nuevo nombre del electrodoméstico:");
+    let referencia = prompt("Ingrese la nueva referencia del electrodoméstico:");
+    electrodomesticos[index][1] = nombre;
+    electrodomesticos[index][2] = referencia;
+    alert("Registro modificado con éxito.");
+  } else {
+    alert("No se encontró ningún registro con el código ingresado.");
+  }
+}
+
+function eliminarRegistro() {
+  let codigo = prompt("Ingrese el código del electrodoméstico que desea eliminar:");
+  let index = electrodomesticos.findIndex((element) => element[0] === codigo);
+  if (index !== -1) {
+    electrodomesticos.splice(index, 1); // elimina el registro del arreglo
+    alert("Registro eliminado con éxito.");
+  } else {
+    alert("No se encontró ningún registro con el código ingresado.");
+  }
+}
+
+function mostrarelregistro() {
+  let lista = "Código\tNombre\tReferencia\n";
+  electrodomesticos.forEach((element) => {
+    lista += `${element[0]}\t${element[1]}\t${element[2]}\n`;
+  });
+  alert(lista);
+}
+
+function ordenarPorIntercambio() {
+  for (let i = 0; i < electrodomesticos.length - 1; i++) {
+    for (let j = i + 1; j < electrodomesticos.length; j++) {
+      if (electrodomesticos[i][0] > electrodomesticos[j][0]) {
+        let temp = electrodomesticos[i];
+        electrodomesticos[i] = electrodomesticos[j];
+        electrodomesticos[j] = temp;
+      }
+    }
+  }
+  alert("Registros ordenados por código utilizando el método de intercambio.");
+}
+
+
+function ordenarPorSeleccion() {
+  for (let i = 0; i < electrodomesticos.length - 1; i++) {
+    let minIndex = i;
+    for (let j = i + 1; j < electrodomesticos.length; j++) {
+      if (electrodomesticos[j][1] < electrodomesticos[minIndex][1]) {
+        minIndex = j;
+      }
+    }
+    let temp = electrodomesticos[i];
+    electrodomesticos[i] = electrodomesticos[minIndex];
+    electrodomesticos[minIndex] = temp;
+  }
+  alert("Registros ordenados por nombre utilizando el método de selección.");
+}
+
+
+function ordenarPorInsercion() {
+    for (let i = 1; i < electrodomesticos.length; i++) {
+      let key = electrodomesticos[i];
+      let j = i - 1;
+      while (j >= 0 && electrodomesticos[j][2] > key[2]) {
+        electrodomesticos[j + 1] = electrodomesticos[j];
+        j--;
+      }
+      electrodomesticos[j + 1] = key;
+    }
+    alert("Registros ordenados por referencia utilizando el método de inserción.");
+  }
+
+
+
+  let opcion = 0;
+while (opcion !== 8) {
+  opcion = parseInt(prompt("--- MENU ---\n1. Crear Registro\n2. Modificar Registro\n3. Eliminar Registro\n4. Visualizar lista\n5. Ordenar por Intercambio\n6. Ordenar por seleccion \n 7. Ordenar por inserccion \n 8.salir"));
+  switch (opcion) {
+    case 1:
+       crearRegistro();
+      break;
+    case 2:
+       modificarRegistro();
+      break;
+    case 3:
+        eliminarRegistro();
+      break;
+    case 4:
+        mostrarelregistro();
+    break;
+    case 5:
+        ordenarPorIntercambio();
+        break;
+    case 6:
+        ordenarPorSeleccion();
+        break;
+    case 7:
+        ordenarPorInsercion();
+        break;
+    case 8:
+        alert("¡Hasta luego!");
+        break;
+      default:
+        alert("Opción inválida. Por favor seleccione una opción válida.");
+  }
+}
+
+    </script>
+
+</body>
+
+</html>
