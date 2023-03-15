@@ -135,23 +135,6 @@ class Estudiante {
         alert(registros);
        
       }
-/*
-      static ordenarPorNombre() {
-        let incremento = Estudiante.registros.length / 2;
-        while (incremento > 0) {
-          for (let i = incremento; i < Estudiante.registros.length; i++) {
-            let j = i;
-            let temp = Estudiante.registros[i];
-            while (j >= incremento && Estudiante.registros[j - incremento].nombre > temp.nombre) {
-                Estudiante.registros[j] = Estudiante.registros[j - incremento];
-              j -= incremento;
-            }
-            Estudiante.registros[j] = temp;
-          }
-          incremento = incremento == 2 ? 1 : parseInt(incremento * 5 / 11);
-        }
-        alert('Los registros han sido ordenados por nombre exitosamente');
-      }*/
     
       static ordenarPorNombre() {
         let incremento = Estudiante.registros.length / 2;
@@ -170,11 +153,6 @@ class Estudiante {
         alert('Los registros han sido ordenados por nombre exitosamente');
       }
 
-
-
-
-
-
       static buscarPorFechaNacimiento() {
         let fecha = new Date(prompt('Ingrese la fecha de nacimiento del estudiante a buscar (formato: (AÑO/MES/DIA))'));
         let inicio = 0;
@@ -192,7 +170,7 @@ class Estudiante {
             inicio = medio + 1;
           }
         }
-        //? 'Femenino' : 'Masculino'
+       
         if (encontrado) {
           alert(`El estudiante con fecha de nacimiento ${fecha.toLocaleDateString()} fue encontrado en el registro con los siguientes datos:\nIdentificacion: ${Estudiante.registros[indexEncontrado].id} | Nombre: ${Estudiante.registros[indexEncontrado].nombre} | Fecha de Nacimiento: ${Estudiante.registros[indexEncontrado].fechaNacimiento.toLocaleDateString()} | Género: ${Estudiante.registros[indexEncontrado].genero ? "Masculino" : "Femenino"} | Año_Semestre: ${Estudiante.registros[indexEncontrado].anoSemestre ? "1er Semestre del Año" : "2do Semestre del Año"} | Cantidad de Asignaturas: ${Estudiante.registros[indexEncontrado].cantidadAsignaturas} | Asignaturas: ${Estudiante.registros[indexEncontrado].asignaturas}`);
         } else {
@@ -235,7 +213,6 @@ class Estudiante {
   }
   
   Estudiante.mostrarMenu();
-
     </script>
 
 </body>
