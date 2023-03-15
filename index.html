@@ -2,12 +2,11 @@
 <html>
 <head>
     <meta charset="UTF-8"> 
-    <title>Taller_4</title>
+    <title>Parcial Practico</title>
 
 </head>
 <body>
     <script>
-
 
 class Estudiante {
     constructor(id, nombre, fechaNacimiento, genero, asignaturas, cantidadAsignaturas, anoSemestre) {
@@ -20,43 +19,93 @@ class Estudiante {
       this.anoSemestre = anoSemestre;
 
     }
-  
+
+    setId(id) {
+        if (typeof id === "number") {
+          this.id = id;
+        } else {
+          throw new Error("La identificación debe ser un número");
+        }
+      }
+    
+      setNombre(nombre) {
+        if (typeof nombre === "string") {
+          this.nombre = nombre;
+        } else {
+          throw new Error("El nombre debe ser una cadena de texto");
+        }
+      }
+    
+      setFechaNacimiento(fechaNacimiento) {
+        if (fechaNacimiento instanceof Date) {
+          this.fechaNacimiento = fechaNacimiento;
+        } else {
+          throw new Error("La fecha de nacimiento debe ser una instancia de Date");
+        }
+      }
+    
+      setCantidadAsignaturas(cantidadAsignaturas) {
+        if (typeof cantidadAsignaturas === "number") {
+          this.cantidadAsignaturas = cantidadAsignaturas;
+        } else {
+          throw new Error("La cantidad de asignaturas debe ser un número");
+        }
+      }
+    
+      setAsignatura(asignaturas) {
+        if (typeof asignaturas === "string") {
+          this.asignaturas = asignaturas;
+        } else {
+          throw new Error("La asignatura debe ser una cadena de texto");
+        }
+      }
+    
+      setAñoSemestre(anoSemestre) {
+        if ( anoSemestre === 1 || anoSemestre === 2) {
+          this.anoSemestre = anoSemestre;
+        } else {
+          throw new Error("El año-semestre debe ser 1 o 2");
+        }
+      }
+    
+
     static registros = [];
   
     static registrarEstudiante() {
-      const id = parseInt(prompt("Ingrese la identificación del estudiante"));
-      const nombre = prompt("Ingrese el nombre del estudiante");
-      const fechaNacimiento = new Date(prompt("Ingrese la fecha de nacimiento del estudiante (YYYY-MM-DD)"));
-      const genero = confirm("Seleccione el género del estudiante:\n\n- Aceptar para Masculino.\n- Cancelar para Femenino.");//prompt("Ingrese el sexo del estudiante -Masculino- -Femenino-");
-      const cantidadAsignaturas = parseInt(prompt("Ingrese la cantidad de asignaturas que tiene el estudiante"));
-      const asignaturas = [];
+      let id = parseInt(prompt("Ingrese la identificación del estudiante"));
+      let nombre = prompt("Ingrese el nombre del estudiante");
+      let fechaNacimiento = new Date(prompt("Ingrese la fecha de nacimiento del estudiante (AÑO/MES/DIA)"));
+      let genero = confirm("Seleccione el género del estudiante:\n\n- Aceptar para Masculino.\n- Cancelar para Femenino.");//prompt("Ingrese el sexo del estudiante -Masculino- -Femenino-");
+      let anoSemestre = confirm("Seleccione el año-semestre del estudiante \n\n- Aceptar para 1er Semestre.\n- Cancelar 2do Semestre");
+      let cantidadAsignaturas = parseInt(prompt("Ingrese la cantidad de asignaturas que tiene el estudiante"));
+      let asignaturas = [];
       for (let i = 0; i < cantidadAsignaturas; i++) {
-        const asignatura = prompt(`Ingrese el nombre de la asignatura ${i + 1}`);
+        let asignatura = prompt(`Ingrese el nombre de la asignatura ${i + 1}`);
         asignaturas.push(asignatura);
       }
-      const anoSemestre = parseInt(prompt("Ingrese el año-semestre del estudiante (1-2)"));
+      
       
   
-      const estudiante = new Estudiante(id, nombre, fechaNacimiento, genero, asignaturas, cantidadAsignaturas, anoSemestre);
+      let estudiante = new Estudiante(id, nombre, fechaNacimiento, genero, asignaturas, cantidadAsignaturas, anoSemestre);
       Estudiante.registros.push(estudiante);
       alert("El estudiante ha sido registrado exitosamente.");
     }
 
 
     static modificarRegistro() {
-        const id = parseInt(prompt("Ingrese la identificación del estudiante que desea modificar"));
-        const estudiante = Estudiante.registros.find((est) => est.id === id);
+        let id = parseInt(prompt("Ingrese la identificación del estudiante que desea modificar"));
+        let estudiante = Estudiante.registros.find((est) => est.id === id);
         if (estudiante) {
           estudiante.nombre = prompt("Ingrese el nuevo nombre del estudiante");
-          estudiante.fechaNacimiento = new Date(prompt("Ingrese la nueva fecha de nacimiento del estudiante (YYYY-MM-DD)"));
+          estudiante.fechaNacimiento = new Date(prompt("Ingrese la nueva fecha de nacimiento del estudiante (AÑO/MES/DIA)"));
           estudiante.genero = confirm("Seleccione el género del estudiante:\n\n- Aceptar para Masculino.\n- Cancelar para Femenino.");;
+          estudiante.anoSemestre = confirm("Seleccione el año-semestre del estudiante \n\n - Aceptar para 1er Semestre.\n- Cancelar 2do Semestre");
           const cantidadAsignaturas = parseInt(prompt("Ingrese la cantidad de asignaturas que tiene el estudiante"));
           estudiante.asignaturas = [];
           for (let i = 0; i < cantidadAsignaturas; i++) {
-            const asignatura = prompt(`Ingrese el nombre de la asignatura ${i + 1}`);
+            let asignatura = prompt(`Ingrese el nombre de la asignatura ${i + 1}`);
             estudiante.asignaturas.push(asignatura);
           }
-          estudiante.anoSemestre = parseInt(prompt("Ingrese el nuevo año-semestre del estudiante (1-2)"));
    
           alert("El registro ha sido modificado exitosamente.");
         } else {
@@ -64,11 +113,9 @@ class Estudiante {
         }
       }
 
-
-
       static eliminarRegistro() {
-        const id = parseInt(prompt('Ingrese la identificación del estudiante a eliminar'));
-        const index = Estudiante.registros.findIndex(estudiante => estudiante.id === id);
+        let id = parseInt(prompt('Ingrese la identificación del estudiante a eliminar'));
+        let index = Estudiante.registros.findIndex(estudiante => estudiante.id === id);
         if (index !== -1) {
           Estudiante.registros.splice(index, 1);
           alert('El estudiante ha sido eliminado exitosamente');
@@ -77,36 +124,36 @@ class Estudiante {
         }
       }
 
-
-
-    /*static consultarRegistros(){
-        let registros = "";
-        for (const estudiante of Estudiante.registros) {
-        registros += `\nIdentificacion: ${Estudiante.registros.id} | Nombre: ${Estudiante.registros.nombre} | Fecha de Nacimiento: ${Estudiante.registros.fechaNacimiento.toLocaleDateString()} | Género: ${Estudiante.registros.genero ? 'Femenino' : 'Masculino'} | Cantidad de Asignaturas: ${Estudiante.registros.cantidadAsignaturas}| Asignaturas: ${Estudiante.registros.asignaturas.join}  | Año-Semestre: ${Estudiante.registros.anoSemestre}\n\n`;
-        }
-        alert(registros)
-    }
-*/
-  
     static consultarRegistros() {
-      let registros = "";
-      for (const estudiante of Estudiante.registros) {
-        registros += `\n-------Informacion del Estudiante-------\nIdentificación: ${estudiante.id}\nNombre: ${estudiante.nombre}\nFecha de nacimiento: ${estudiante.fechaNacimiento.toDateString()}\nGenero: ${estudiante.genero ? "Masculino" : "Femenino"}\nAsignaturas: ${estudiante.asignaturas.join(", ")}\nAño-Semestre: ${estudiante.anoSemestre}\n\n`;
-      }
-      alert(registros);
-    }
-  
-  /*  function mostrarelregistro() {
-        let lista = "Código\tNombre\tReferencia\n";
-        electrodomesticos.forEach((element) => {
-        lista += `${element[0]}\t${element[1]}\t${element[2]}\n`;
-        });
-        alert(lista);
+        let registros = "";
+        console.log(`\n-------Inicio de la lista-------\n\n\n\n`);
+        for (let estudiante of Estudiante.registros) {
+          registros += `\n-------Informacion del Estudiante-------\nIdentificación: ${estudiante.id} | Nombre: ${estudiante.nombre} | Fecha de nacimiento: ${estudiante.fechaNacimiento.toLocaleDateString()} | Genero: ${estudiante.genero ? "Masculino" : "Femenino"} | Año_Semestre: ${estudiante.anoSemestre ? "1er Semestre del Año" : "2do Semestre del Año"} | Cantidad de Asignaturas: ${estudiante.cantidadAsignaturas} | Asignaturas: ${estudiante.asignaturas.join(", ")}\n`;
+          console.log(registros);
         }
-*/        
-
+        console.log(`\n-------Final de la lista-------\n\n\n\n-----------------------------------------------------------------------`);
+        alert(registros);
+       
+      }
+/*
+      static ordenarPorNombre() {
+        let incremento = Estudiante.registros.length / 2;
+        while (incremento > 0) {
+          for (let i = incremento; i < Estudiante.registros.length; i++) {
+            let j = i;
+            let temp = Estudiante.registros[i];
+            while (j >= incremento && Estudiante.registros[j - incremento].nombre > temp.nombre) {
+                Estudiante.registros[j] = Estudiante.registros[j - incremento];
+              j -= incremento;
+            }
+            Estudiante.registros[j] = temp;
+          }
+          incremento = incremento == 2 ? 1 : parseInt(incremento * 5 / 11);
+        }
+        alert('Los registros han sido ordenados por nombre exitosamente');
+      }*/
     
-    static ordenarPorNombre() {
+      static ordenarPorNombre() {
         let incremento = Estudiante.registros.length / 2;
         while (incremento > 0) {
           for (let i = incremento; i < Estudiante.registros.length; i++) {
@@ -124,8 +171,12 @@ class Estudiante {
       }
 
 
+
+
+
+
       static buscarPorFechaNacimiento() {
-        const fecha = new Date(prompt('Ingrese la fecha de nacimiento del estudiante a buscar (formato: (YYYY-MM-DD))'));
+        let fecha = new Date(prompt('Ingrese la fecha de nacimiento del estudiante a buscar (formato: (AÑO/MES/DIA))'));
         let inicio = 0;
         let fin = Estudiante.registros.length - 1;
         let encontrado = false;
@@ -141,8 +192,9 @@ class Estudiante {
             inicio = medio + 1;
           }
         }
+        //? 'Femenino' : 'Masculino'
         if (encontrado) {
-          alert(`El estudiante con fecha de nacimiento ${fecha.toLocaleDateString()} fue encontrado en el registro con los siguientes datos:\nIdentificacion: ${Estudiante.registros[indexEncontrado].id} | Nombre: ${Estudiante.registros[indexEncontrado].nombre} | Fecha de Nacimiento: ${Estudiante.registros[indexEncontrado].fechaNacimiento.toLocaleDateString()} | Género: ${Estudiante.registros[indexEncontrado].genero ? 'Femenino' : 'Masculino'} | Asignatura: ${Estudiante.registros[indexEncontrado].asignatura} | Cantidad de Asignaturas: ${Estudiante.registros[indexEncontrado].cantidadAsignaturas} | Año-Semestre: ${Estudiante.registros[indexEncontrado].anoSemestre}`);
+          alert(`El estudiante con fecha de nacimiento ${fecha.toLocaleDateString()} fue encontrado en el registro con los siguientes datos:\nIdentificacion: ${Estudiante.registros[indexEncontrado].id} | Nombre: ${Estudiante.registros[indexEncontrado].nombre} | Fecha de Nacimiento: ${Estudiante.registros[indexEncontrado].fechaNacimiento.toLocaleDateString()} | Género: ${Estudiante.registros[indexEncontrado].genero ? "Masculino" : "Femenino"} | Año_Semestre: ${Estudiante.registros[indexEncontrado].anoSemestre ? "1er Semestre del Año" : "2do Semestre del Año"} | Cantidad de Asignaturas: ${Estudiante.registros[indexEncontrado].cantidadAsignaturas} | Asignaturas: ${Estudiante.registros[indexEncontrado].asignaturas}`);
         } else {
           alert(`No se encontró ningún estudiante con fecha de nacimiento ${fecha.toLocaleDateString()}`);
         }
@@ -151,7 +203,7 @@ class Estudiante {
     static mostrarMenu() {
       let opcion = "";
       while (opcion !== "7") {
-        opcion = prompt("Seleccione una opción:\n1. Registrar Estudiante\n2. Modificar Registro\n3. Eliminar Registro\n4. Consultar Registros\n5. Ordenamiento por Shell\n6. Busqueda Binaria\n7. Salir");
+        opcion = prompt("---MENU---\n\n1. Registrar Estudiante\n2. Modificar Registro\n3. Eliminar Registro\n4. Consultar Registros\n5. Ordenamiento por Shell\n6. Busqueda Binaria\n7. Salir");
         switch (opcion) {
           case "1":
             Estudiante.registrarEstudiante();
